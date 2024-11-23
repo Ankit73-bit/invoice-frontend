@@ -3,11 +3,9 @@ import { StyleSheet, Text, View } from "@react-pdf/renderer";
 const clientStyles = StyleSheet.create({
   container: {
     fontSize: 10,
-    borderBottom: "1px solid black",
-    borderLeft: "1px solid black",
-    borderRight: "1px solid black",
+    borderTop: "1px solid black",
     padding: 4,
-    width: "60%",
+    width: "100%",
   },
   clientName: {
     fontWeight: "semibold",

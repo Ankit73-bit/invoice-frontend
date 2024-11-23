@@ -1,16 +1,16 @@
 import { StyleSheet, View } from "@react-pdf/renderer";
 import InvoiceNoDetails from "./InvoiceNoDetails";
 import ReferenceDetails from "./ReferenceDetails";
+import PurchaseDetails from "./PurchaseDetails";
+import DispatchDetails from "./DispatchDetails";
+import TermsOfDelivery from "./TermsOfDelivery";
 
 const invoiceDetails = StyleSheet.create({
   container: {
     display: "flex",
     flexDirection: "column",
     flexWrap: "wrap",
-    borderBottom: "1px solid black",
-    borderTop: "1px solid black",
-    borderRight: "1px solid black",
-    width: "40%",
+    width: "50%",
   },
 });
 
@@ -19,6 +19,9 @@ function InvoiceDetails() {
     <View style={invoiceDetails.container}>
       <InvoiceNoDetails />
       <ReferenceDetails />
+      <PurchaseDetails />
+      <DispatchDetails />
+      <TermsOfDelivery />
     </View>
   );
 }

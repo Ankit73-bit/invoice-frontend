@@ -12,17 +12,14 @@ const invoiceDetails = StyleSheet.create({
   invoiceNo: {
     fontSize: 10,
     borderBottom: "1px solid black",
-    // borderLeft: "1px solid black",
-    // borderRight: "1px solid black",
-    width: "40%",
+    width: "50%",
     padding: 4,
   },
   invoiceDate: {
     fontSize: 10,
     borderBottom: "1px solid black",
     borderLeft: "1px solid black",
-    // borderRight: "1px solid black",
-    width: "60%",
+    width: "50%",
     padding: 4,
   },
 });

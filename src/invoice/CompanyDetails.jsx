@@ -3,9 +3,9 @@ import { StyleSheet, Text, View } from "@react-pdf/renderer";
 const companyStyles = StyleSheet.create({
   container: {
     fontSize: 10,
-    border: "1px solid black",
+    borderBottom: "1px solid black",
     padding: 4,
-    width: "60%",
+    width: "100%",
   },
   companyName: {
     fontWeight: "semibold",
