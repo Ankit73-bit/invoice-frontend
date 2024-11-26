@@ -1,26 +1,30 @@
-import { useState } from "react";
-import { PDFViewer } from "@react-pdf/renderer";
-import InvoiceForm from "./invoice/InvoiceForm";
-import InvoicePDF from "./invoice/InvoicePDF";
-import HomePage from "./ui/HomePage";
-import "./index.css";
+import "./styles/index.css";
+import GlobalStyles from "./styles/GlobalStyles";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import Dashboard from "./pages/Dashboard";
+import PageNotFound from "./pages/PageNotFound";
+import Invoices from "./pages/Invoices";
+import AppLayout from "./ui/AppLayout";
+import { DarkModeProvider } from "./context/DarkModeContext";
+import CreateInvoice from "./pages/CreateInvoice";
 
 const App = () => {
-  const [invoiceData, setInvoiceData] = useState(null);
   return (
-    <div>
-      {!invoiceData ? (
-        <InvoiceForm onSubmit={setInvoiceData} />
-      ) : (
-        <div className="">
-          <PDFViewer style={{ width: "100%", height: "100vh" }}>
-            <InvoicePDF data={invoiceData} />
-          </PDFViewer>
-        </div>
-      )}
-    </div>
+    <DarkModeProvider>
+      <GlobalStyles />
+      <BrowserRouter>
+        <Routes>
+          <Route element={<AppLayout />}>
+            <Route index element={<Navigate replace to="dashboard" />} />
+            <Route path="dashboard" element={<Dashboard />} />
+            <Route path="create-invoice" element={<CreateInvoice />} />
+            <Route path="invoices" element={<Invoices />} />
+          </Route>
+          <Route path="*" element={<PageNotFound />} />
+        </Routes>
+      </BrowserRouter>
+    </DarkModeProvider>
   );
-  // return <HomePage />;
 };
 
 export default App;

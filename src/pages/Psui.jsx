@@ -1,49 +1,53 @@
 import styled from "styled-components";
+import { useActiveCompany } from "../context/ActiveCompanyContext";
 
 const Div = styled.div`
   position: absolute;
   height: 100%;
   width: 100%;
-  margin: 0;
-  padding: 0;
   background: linear-gradient(
     135deg,
-    hsla(217, 100%, 50%, 1) 0%,
-    hsla(186, 100%, 69%, 1) 100%
+    hsla(33, 100%, 53%, 1) 0%,
+    hsla(58, 100%, 68%, 1) 100%
   );
 
   background: -moz-linear-gradient(
     135deg,
-    hsla(217, 100%, 50%, 1) 0%,
-    hsla(186, 100%, 69%, 1) 100%
+    hsla(33, 100%, 53%, 1) 0%,
+    hsla(58, 100%, 68%, 1) 100%
   );
 
   background: -webkit-linear-gradient(
     135deg,
-    hsla(217, 100%, 50%, 1) 0%,
-    hsla(186, 100%, 69%, 1) 100%
+    hsla(33, 100%, 53%, 1) 0%,
+    hsla(58, 100%, 68%, 1) 100%
   );
+
   display: flex;
   align-items: center;
   justify-content: center;
 `;
 
-function Ppui({ activeCompany, setActiveCompany }) {
+function Psui() {
+  const { activeCompany, setActiveCompany } = useActiveCompany();
+
   return (
     <>
       <Div
         className={`${
-          activeCompany === "Paras Print" ? "z-10" : "z-0"
+          activeCompany === "Paras Solutions" ? "z-10" : "z-0"
         } sevillana-regular text-6xl tracking-wider`}
         style={{
           clipPath: `${
-            activeCompany === "Paras Print"
+            activeCompany === "Paras Solutions"
               ? "polygon(0 0, 100% 0, 100% 100%, 0% 100%)"
-              : "polygon(0 0, 100% 0, 50% 50%, 0% 100%)"
+              : "polygon(100% 100%, 100% 0, 50% 50%, 0% 100%)"
           }`,
         }}
         onClick={() =>
-          setActiveCompany(activeCompany === "Paras Print" ? "" : "Paras Print")
+          setActiveCompany(
+            activeCompany === "Paras Solutions" ? "" : "Paras Solutions"
+          )
         }
       >
         {activeCompany}
@@ -52,4 +56,4 @@ function Ppui({ activeCompany, setActiveCompany }) {
   );
 }
 
-export default Ppui;
+export default Psui;

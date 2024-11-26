@@ -1,7 +1,3 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
 .sevillana-regular {
   font-family: "Sevillana", cursive;
   font-weight: 400;

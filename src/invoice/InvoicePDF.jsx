@@ -45,11 +45,6 @@ const InvoicePDF = () => (
       <View style={styles.section2}>
         <DescriptionHead />
         <Description />
-        <Description />
-        <Description />
-        <Description />
-        <Description />
-        <Description />
         <Note />
       </View>
       <View style={styles.section3}>
