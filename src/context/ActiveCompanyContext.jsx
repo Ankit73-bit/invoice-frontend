@@ -1,4 +1,5 @@
 import { createContext, useContext, useState } from "react";
+import PropTypes from "prop-types";
 
 const ActiveCompanyContext = createContext();
 
@@ -20,5 +21,9 @@ function useActiveCompany() {
     );
   return context;
 }
+
+ActiveCompanyProvider.propTypes = {
+  children: PropTypes.node, // Allows any valid React node
+};
 
 export { ActiveCompanyProvider, useActiveCompany };
