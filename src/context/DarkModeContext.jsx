@@ -1,5 +1,6 @@
 import { createContext, useContext, useEffect } from "react";
 import { useLocalStorageState } from "../hooks/useLocalStorageState";
+import PropTypes from "prop-types";
 
 const DarkModeContext = createContext();
 
@@ -39,5 +40,9 @@ function useDarkMode() {
     throw new Error("DarkModeContext was used outside of DarkModeProvider");
   return context;
 }
+
+DarkModeProvider.propTypes = {
+  children: PropTypes.node, // Allows any valid React node
+};
 
 export { DarkModeProvider, useDarkMode };
