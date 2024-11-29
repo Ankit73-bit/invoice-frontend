@@ -119,7 +119,7 @@ function InvoiceRow({
 
         <Modal.Window name="delete">
           <ConfirmDelete
-            resourceName="booking"
+            resourceName="invoice"
             disabled={isDeleting}
             onConfirm={() => deleteInvoice(invoiceId)}
           />

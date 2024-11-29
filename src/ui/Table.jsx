@@ -90,9 +90,10 @@ function Row({ children }) {
 
 function Body({ data, render }) {
   if (!data.length) return <Empty>No data to show at the moment</Empty>;
-  console.log(data);
 
-  return <StyledBody>{data.map(render)}</StyledBody>;
+  return (
+    <StyledBody>{data.map((item, index) => render(item, index))}</StyledBody>
+  );
 }
 
 Table.Header = Header;
