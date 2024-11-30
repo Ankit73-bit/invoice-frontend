@@ -1,8 +1,9 @@
 import { HiChevronLeft, HiChevronRight } from "react-icons/hi2";
 import { useSearchParams } from "react-router-dom";
 import styled from "styled-components";
-import { PAGE_SIZE } from "../utils/constants";
+import { PAGE_SIZE } from "../utils/constant";
 
+// Styled components for pagination
 const StyledPagination = styled.div`
   width: 100%;
   display: flex;
@@ -67,24 +68,30 @@ function Pagination({ count }) {
 
   const pageCount = Math.ceil(count / PAGE_SIZE);
 
+  // Navigate to the next page
   function nextPage() {
-    const next = currentPage === pageCount ? currentPage : currentPage + 1;
-
-    searchParams.set("page", next);
-    setSearchParams(searchParams);
+    if (currentPage < pageCount) {
+      const next = currentPage + 1;
+      searchParams.set("page", next);
+      setSearchParams(searchParams);
+    }
   }
 
+  // Navigate to the previous page
   function prevPage() {
-    const prev = currentPage === 1 ? currentPage : currentPage - 1;
-
-    searchParams.set("page", prev);
-    setSearchParams(searchParams);
+    if (currentPage > 1) {
+      const prev = currentPage - 1;
+      searchParams.set("page", prev);
+      setSearchParams(searchParams);
+    }
   }
 
+  // If no pages exist, return nothing
   if (pageCount <= 1) return null;
 
   return (
     <StyledPagination>
+      {/* Displaying the range of results shown */}
       <P>
         Showing <span>{(currentPage - 1) * PAGE_SIZE + 1}</span> to{" "}
         <span>
@@ -93,6 +100,7 @@ function Pagination({ count }) {
         of <span>{count}</span> results
       </P>
 
+      {/* Pagination buttons */}
       <Buttons>
         <PaginationButton onClick={prevPage} disabled={currentPage === 1}>
           <HiChevronLeft /> <span>Previous</span>

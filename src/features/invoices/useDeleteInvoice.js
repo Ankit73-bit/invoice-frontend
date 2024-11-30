@@ -11,7 +11,7 @@ export function useDeleteInvoice() {
       toast.success("Invoice successfully deleted");
 
       queryClient.invalidateQueries({
-        queryKey: ["invoice"],
+        queryKey: ["invoices"],
       });
     },
     onError: (err) => toast.error(err.message),

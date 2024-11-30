@@ -47,7 +47,7 @@ const Amount = styled.div`
 
 function InvoiceRow({
   invoice: {
-    id: invoiceId,
+    _id: invoiceId,
     invoiceNo,
     date: invoiceDate,
     grossAmount,

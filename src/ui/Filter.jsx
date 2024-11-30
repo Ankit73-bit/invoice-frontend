@@ -25,7 +25,6 @@ const FilterButton = styled.button`
   border-radius: var(--border-radius-sm);
   font-weight: 500;
   font-size: 1.4rem;
-  /* To give the same height as select */
   padding: 0.44rem 0.8rem;
   transition: all 0.3s;
 
@@ -39,10 +38,20 @@ function Filter({ filterField, options }) {
   const [searchParams, setSearchParams] = useSearchParams();
   const currentFilter = searchParams.get(filterField) || options.at(0).value;
 
+  // Handle clicking a filter button
   function handleClick(value) {
-    searchParams.set(filterField, value);
+    // If "all" is selected, remove the filter completely from the search params
+    if (value === "all") {
+      searchParams.delete(filterField);
+    } else {
+      // Otherwise, set the filter to the selected value
+      searchParams.set(filterField, value);
+    }
+
+    // Reset the page to 1 when a new filter is applied
     if (searchParams.get("page")) searchParams.set("page", 1);
 
+    // Update the search params in the URL
     setSearchParams(searchParams);
   }
 

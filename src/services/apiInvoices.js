@@ -1,5 +1,5 @@
 import axios from "axios";
-import { API_URL } from "../utils/constant";
+import { API_URL, PAGE_SIZE } from "../utils/constant";
 
 // Set default Axios config
 const axiosInstance = axios.create({
@@ -9,14 +9,35 @@ const axiosInstance = axios.create({
   },
 });
 
-// Get all invoices with optional query parameters
-export const getAllInvoices = async (queryParams = {}) => {
+// Fetch invoices with optional filtering, sorting, and pagination
+export const getAllInvoices = async ({ filters, sort, page }) => {
   try {
-    // Convert queryParams object to query string
+    const queryParams = {};
+
+    // Add multiple filters to queryParams
+    if (filters) {
+      Object.keys(filters).forEach((key) => {
+        if (filters[key]) {
+          queryParams[key] = filters[key];
+        }
+      });
+    }
+
+    // Add sort
+    if (sort) {
+      queryParams.sort = sort;
+    }
+
+    // Pagination params
+    if (page) queryParams.page = page;
+    queryParams.limit = PAGE_SIZE;
+
+    // Convert query parameters to query string
     const queryString = new URLSearchParams(queryParams).toString();
 
+    // Make API call
     const response = await axiosInstance.get(`?${queryString}`);
-    return response.data;
+    return response.data; // Assumes the backend returns { data, count }
   } catch (error) {
     console.error("Error fetching invoices:", error.response?.data || error);
     throw new Error("Invoices could not be loaded");
