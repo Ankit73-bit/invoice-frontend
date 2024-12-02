@@ -7,47 +7,45 @@ import {
 import Stat from "./Stat";
 import { formatCurrency } from "../../utils/helpers";
 
-function Stats({ bookings, confirmedStays, numDays, cabinCount }) {
-  // 1.
-  const numBookings = bookings.length;
-
-  // 2.
-  const sales = bookings.reduce((acc, cur) => acc + cur.totalPrice, 0);
-
-  // 3.
-  const checkins = confirmedStays.length;
-
-  // 4.
-  const occupation =
-    confirmedStays.reduce((acc, cur) => acc + cur.numNights, 0) /
-    (numDays * cabinCount);
-  // num checked in nights / all available nights (num days * num cabins)
+function Stats({ stats }) {
+  const totalInvoices = stats.countByStatus.reduce(
+    (acc, status) => acc + status.count,
+    0
+  );
+  const totalRevenue = stats.totalRevenue.reduce(
+    (acc, entity) => acc + entity.total,
+    0
+  );
+  const pendingInvoices =
+    stats.countByStatus.find((s) => s._id === "Pending")?.count || 0;
+  const paidInvoices =
+    stats.countByStatus.find((s) => s._id === "Paid")?.count || 0;
 
   return (
     <>
       <Stat
-        title="Bookings"
+        title="Total Invoices"
         color="blue"
         icon={<HiOutlineBriefcase />}
-        value={numBookings}
+        value={totalInvoices}
       />
       <Stat
-        title="Sales"
+        title="Total Revenue"
         color="green"
         icon={<HiOutlineBanknotes />}
-        value={formatCurrency(sales)}
+        value={formatCurrency(totalRevenue)}
       />
       <Stat
-        title="Check ins"
-        color="indigo"
-        icon={<HiOutlineCalendarDays />}
-        value={checkins}
-      />
-      <Stat
-        title="Occupancy rate"
+        title="Pending Invoices"
         color="yellow"
+        icon={<HiOutlineCalendarDays />}
+        value={pendingInvoices}
+      />
+      <Stat
+        title="Paid Invoices"
+        color="indigo"
         icon={<HiOutlineChartBar />}
-        value={Math.round(occupation * 100) + "%"}
+        value={paidInvoices}
       />
     </>
   );

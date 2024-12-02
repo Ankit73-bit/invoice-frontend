@@ -1,5 +1,5 @@
 import axios from "axios";
-import { API_URL, PAGE_SIZE } from "../utils/constant";
+import { API_URL, getApiUrl } from "../utils/constant";
 
 // Set default Axios config
 const axiosInstance = axios.create({
@@ -10,37 +10,23 @@ const axiosInstance = axios.create({
 });
 
 // Fetch invoices with optional filtering, sorting, and pagination
-export const getAllInvoices = async ({ filters, sort, page }) => {
+export const getAllInvoices = async ({
+  filters = {},
+  sort = "",
+  page = 1,
+  limit = 10,
+} = {}) => {
   try {
-    const queryParams = {};
+    // Build query parameters
+    const additionalParams = { sort, ...filters };
+    const fullUrl = getApiUrl(page, limit, additionalParams);
 
-    // Add multiple filters to queryParams
-    if (filters) {
-      Object.keys(filters).forEach((key) => {
-        if (filters[key]) {
-          queryParams[key] = filters[key];
-        }
-      });
-    }
-
-    // Add sort
-    if (sort) {
-      queryParams.sort = sort;
-    }
-
-    // Pagination params
-    if (page) queryParams.page = page;
-    queryParams.limit = PAGE_SIZE;
-
-    // Convert query parameters to query string
-    const queryString = new URLSearchParams(queryParams).toString();
-
-    // Make API call
-    const response = await axiosInstance.get(`?${queryString}`);
-    return response.data; // Assumes the backend returns { data, count }
+    // Fetch data
+    const response = await axios.get(fullUrl);
+    return response.data;
   } catch (error) {
     console.error("Error fetching invoices:", error.response?.data || error);
-    throw new Error("Invoices could not be loaded");
+    throw new Error("Failed to load invoices. Please try again later.");
   }
 };
 
@@ -92,12 +78,9 @@ export const deleteInvoice = async (id) => {
 export const getInvoicesStats = async () => {
   try {
     const response = await axiosInstance.get("/invoice-stats");
-    return response.data;
+    return response.data.data; // Assuming response.data.data contains the stats
   } catch (error) {
-    console.error(
-      "Error fetching invoice statistics:",
-      error.response?.data || error
-    );
-    throw new Error("Invoices could not be loaded");
+    console.error("Error fetching invoice statistics:", error);
+    throw new Error("Could not fetch invoice statistics");
   }
 };

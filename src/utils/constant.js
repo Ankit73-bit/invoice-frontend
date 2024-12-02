@@ -2,6 +2,16 @@ export const API_URL = "http://127.0.0.1:8000/api/v1/invoices";
 
 export const PAGE_SIZE = 10;
 
+export const getApiUrl = (page = 1, limit = 10, additionalParams = {}) => {
+  const searchParams = new URLSearchParams({
+    page,
+    limit,
+    ...additionalParams, // Spread other additionalParams directly
+  });
+
+  return `http://127.0.0.1:8000/api/v1/invoices?${searchParams.toString()}`;
+};
+
 export const COMPANY_DETAILS = [
   {
     clientCompanyName: "Paras Print",

@@ -23,47 +23,29 @@ const StyledSalesChart = styled(DashboardBox)`
   }
 `;
 
-function SalesChart({ bookings, numDays }) {
+function SalesChart({ trends }) {
   const { isDarkMode } = useDarkMode();
-
-  const allDates = eachDayOfInterval({
-    start: subDays(new Date(), numDays - 1),
-    end: new Date(),
-  });
-
-  const data = allDates.map((date) => {
-    return {
-      label: format(date, "MMM dd"),
-      totalSales: bookings
-        .filter((booking) => isSameDay(date, new Date(booking.created_at)))
-        .reduce((acc, cur) => acc + cur.totalPrice, 0),
-      extrasSales: bookings
-        .filter((booking) => isSameDay(date, new Date(booking.created_at)))
-        .reduce((acc, cur) => acc + cur.extrasPrice, 0),
-    };
-  });
 
   const colors = isDarkMode
     ? {
-        totalSales: { stroke: "#4f46e5", fill: "#4f46e5" },
-        extrasSales: { stroke: "#22c55e", fill: "#22c55e" },
+        total: { stroke: "#4f46e5", fill: "#4f46e5" },
         text: "#e5e7eb",
         background: "#18212f",
       }
     : {
-        totalSales: { stroke: "#4f46e5", fill: "#c7d2fe" },
-        extrasSales: { stroke: "#16a34a", fill: "#dcfce7" },
+        total: { stroke: "#4f46e5", fill: "#c7d2fe" },
         text: "#374151",
         background: "#fff",
       };
 
+  const data = trends.map((trend) => ({
+    label: format(new Date(trend._id), "MMM yyyy"),
+    totalRevenue: trend.total,
+  }));
+
   return (
     <StyledSalesChart>
-      <Heading as="h2">
-        Sales from {format(allDates.at(0), "MMM dd yyyy")} &mdash;{" "}
-        {format(allDates.at(-1), "MMM dd yyyy")}{" "}
-      </Heading>
-
+      <Heading as="h2">Monthly Revenue Trends</Heading>
       <ResponsiveContainer height={300} width="100%">
         <AreaChart data={data}>
           <XAxis
@@ -79,21 +61,12 @@ function SalesChart({ bookings, numDays }) {
           <CartesianGrid strokeDasharray="4" />
           <Tooltip contentStyle={{ backgroundColor: colors.background }} />
           <Area
-            dataKey="totalSales"
+            dataKey="totalRevenue"
             type="monotone"
-            stroke={colors.totalSales.stroke}
-            fill={colors.totalSales.fill}
+            stroke={colors.total.stroke}
+            fill={colors.total.fill}
             strokeWidth={2}
-            name="Total sales"
-            unit="$"
-          />
-          <Area
-            dataKey="extrasSales"
-            type="monotone"
-            stroke={colors.extrasSales.stroke}
-            fill={colors.extrasSales.fill}
-            strokeWidth={2}
-            name="Extras sales"
+            name="Total Revenue"
             unit="$"
           />
         </AreaChart>

@@ -1,6 +1,5 @@
 import Table from "../../ui/Table";
 import Menus from "../../ui/Menus";
-
 import Spinner from "../../ui/Spinner";
 import InvoiceRow from "./InvoiceRow";
 import useInvoices from "./useInvoices";
