@@ -33,7 +33,7 @@ export const getAllInvoices = async ({
 // Get a single invoice by ID
 export const getInvoiceById = async (id) => {
   try {
-    const response = await axiosInstance.get(`/${id}`);
+    const response = await axiosInstance.get(`/invoices/${id}`);
     return response.data;
   } catch (error) {
     console.error("Error fetching invoice:", error.response?.data || error);
@@ -44,7 +44,7 @@ export const getInvoiceById = async (id) => {
 // Create a new invoice
 export const createInvoice = async (invoiceData) => {
   try {
-    const response = await axiosInstance.post("/", invoiceData);
+    const response = await axiosInstance.post("/invoices", invoiceData);
     return response.data;
   } catch (error) {
     console.error("Error creating invoice:", error.response?.data || error);
@@ -55,7 +55,7 @@ export const createInvoice = async (invoiceData) => {
 // Update an invoice by ID
 export const updateInvoice = async (id, invoiceData) => {
   try {
-    const response = await axiosInstance.patch(`/${id}`, invoiceData);
+    const response = await axiosInstance.patch(`/invoices/${id}`, invoiceData);
     return response.data;
   } catch (error) {
     console.error("Error updating invoice:", error.response?.data || error);
@@ -66,7 +66,7 @@ export const updateInvoice = async (id, invoiceData) => {
 // Delete an invoice by ID
 export const deleteInvoice = async (id) => {
   try {
-    const response = await axiosInstance.delete(`/${id}`);
+    const response = await axiosInstance.delete(`/invoices/${id}`);
     return response.data;
   } catch (error) {
     console.error("Error deleting invoice:", error.response?.data || error);
@@ -77,7 +77,7 @@ export const deleteInvoice = async (id) => {
 // Fetch invoice statistics
 export const getInvoicesStats = async () => {
   try {
-    const response = await axiosInstance.get("/invoice-stats");
+    const response = await axiosInstance.get("/invoices/invoice-stats");
     return response.data.data; // Assuming response.data.data contains the stats
   } catch (error) {
     console.error("Error fetching invoice statistics:", error);

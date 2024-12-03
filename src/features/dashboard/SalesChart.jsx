@@ -54,7 +54,7 @@ function SalesChart({ trends }) {
             tickLine={{ stroke: colors.text }}
           />
           <YAxis
-            unit="$"
+            unit="₹"
             tick={{ fill: colors.text }}
             tickLine={{ stroke: colors.text }}
           />
@@ -67,7 +67,7 @@ function SalesChart({ trends }) {
             fill={colors.total.fill}
             strokeWidth={2}
             name="Total Revenue"
-            unit="$"
+            unit="₹"
           />
         </AreaChart>
       </ResponsiveContainer>
