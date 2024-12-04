@@ -8,10 +8,10 @@ function AddConsigneeAddress({ onCloseModal }) {
     "consignees"
   );
 
-  const clientFields = [
+  const consigneeFields = [
     {
-      name: "clientCompanyName",
-      label: "Client Company Name",
+      name: "clientConsigneeName",
+      label: "Client Consignee Name",
       validation: { required: "This field is required" },
     },
     {
@@ -25,7 +25,7 @@ function AddConsigneeAddress({ onCloseModal }) {
       ],
       validation: { required: "Please select a company" },
     },
-    { name: "clientName", label: "Client Name" },
+    { name: "consigneeName", label: "Consignee Name" },
     { name: "address.add1", label: "Address Line 1" },
     { name: "address.add2", label: "Address Line 2" },
     { name: "address.add3", label: "Address Line 3" },
@@ -49,7 +49,7 @@ function AddConsigneeAddress({ onCloseModal }) {
   return (
     <AddNewAddress
       entityName="Consignee"
-      fields={clientFields}
+      fields={consigneeFields}
       onCloseModal={onCloseModal}
       onSubmit={(data) => createConsigneeAddress(data)}
     />

@@ -13,7 +13,7 @@ const axiosInstance = axios.create({
 export const getAllClientAddress = async () => {
   try {
     const response = await axiosInstance.get("/clients");
-    return response.data;
+    return response.data.data.clients;
   } catch (error) {
     console.error("Error creating Client:", error.response?.data || error);
     throw new Error("Clients could not be loaded");
@@ -34,7 +34,6 @@ export const createClientAddress = async (addressData) => {
 export const getAllConsigneeAddress = async () => {
   try {
     const response = await axiosInstance.get("/consignees");
-    console.log(response.data);
     return response.data;
   } catch (error) {
     console.error("Error creating Consignee:", error.response?.data || error);

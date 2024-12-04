@@ -29,8 +29,9 @@ function InvoiceTable() {
           )}
         />
 
-        <Pagination count={totalCount} />
-        <Table.Footer></Table.Footer>
+        <Table.Footer>
+          <Pagination count={totalCount} />
+        </Table.Footer>
       </Table>
     </Menus>
   );

@@ -9,7 +9,9 @@ function CreateInvoice() {
         <Heading as="h1">Create Invoice</Heading>
       </Row>
 
-      <InvoiceForm />
+      <Row>
+        <InvoiceForm />
+      </Row>
     </>
   );
 }
