@@ -34,7 +34,7 @@ export const createClientAddress = async (addressData) => {
 export const getAllConsigneeAddress = async () => {
   try {
     const response = await axiosInstance.get("/consignees");
-    return response.data;
+    return response.data.data.consignees;
   } catch (error) {
     console.error("Error creating Consignee:", error.response?.data || error);
     throw new Error("Consignees could not be loaded");
@@ -48,5 +48,16 @@ export const createConsigneeAddress = async (addressData) => {
   } catch (error) {
     console.error("Error creating Consignee:", error.response?.data || error);
     throw new Error("Consignees could not be loaded");
+  }
+};
+
+// Counter
+export const getAllCounters = async () => {
+  try {
+    const response = await axiosInstance.get("/counters");
+    return response.data.data.counters;
+  } catch (error) {
+    console.error("Error creating Counter:", error.response?.data || error);
+    throw new Error("Counters could not be loaded");
   }
 };

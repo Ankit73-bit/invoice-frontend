@@ -1,4 +1,5 @@
 import { StyleSheet, View, Text } from "@react-pdf/renderer";
+import { formattedDate } from "../utils/helpers";
 
 const invoiceDetails = StyleSheet.create({
   container: {
@@ -24,11 +25,13 @@ const invoiceDetails = StyleSheet.create({
   },
 });
 
-function InvoiceNoDetails() {
+function InvoiceNoDetails({ invoiceNo, invoiceDate }) {
   return (
     <View style={invoiceDetails.container}>
-      <Text style={invoiceDetails.invoiceNo}>Invoice No: 100</Text>
-      <Text style={invoiceDetails.invoiceDate}>Invoice Date: 20-11-2024</Text>
+      <Text style={invoiceDetails.invoiceNo}>Invoice No: {invoiceNo}</Text>
+      <Text style={invoiceDetails.invoiceDate}>
+        Invoice Date: {formattedDate(invoiceDate)}
+      </Text>
     </View>
   );
 }

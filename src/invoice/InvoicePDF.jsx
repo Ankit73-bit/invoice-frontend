@@ -35,12 +35,30 @@ const styles = StyleSheet.create({
   text: { fontSize: 12 },
 });
 
-const InvoicePDF = () => (
+const InvoicePDF = ({
+  referenceDate,
+  referenceNo,
+  invoiceDate,
+  invoiceNo,
+  selectedCompany,
+  selectedClient,
+  selectedConsignee,
+  selectedBank,
+}) => (
   <Document>
     <Page style={styles.page} wrap={true}>
       <View style={styles.section1}>
-        <AddressDetails />
-        <InvoiceDetails />
+        <AddressDetails
+          company={selectedCompany}
+          client={selectedClient}
+          consignee={selectedConsignee}
+        />
+        <InvoiceDetails
+          invoiceNo={invoiceNo}
+          invoiceDate={invoiceDate}
+          referenceNo={referenceNo}
+          referenceDate={referenceDate}
+        />
       </View>
       <View style={styles.section2}>
         <DescriptionHead />
@@ -48,7 +66,7 @@ const InvoicePDF = () => (
         <Note />
       </View>
       <View style={styles.section3}>
-        <AmountDetails />
+        <AmountDetails bankDetails={selectedBank} />
       </View>
       <View style={styles.section4}>
         <Declaration /> {/* Signature is inside the Declaration component */}

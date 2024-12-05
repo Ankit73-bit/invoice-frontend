@@ -1,4 +1,5 @@
 import InvoiceForm from "../features/createInvoice/InvoiceForm";
+import { InvoiceContextProvider } from "../features/createInvoice/useInvoiceContext";
 import Heading from "../ui/Heading";
 import Row from "../ui/Row";
 
@@ -10,7 +11,9 @@ function CreateInvoice() {
       </Row>
 
       <Row>
-        <InvoiceForm />
+        <InvoiceContextProvider>
+          <InvoiceForm />
+        </InvoiceContextProvider>
       </Row>
     </>
   );

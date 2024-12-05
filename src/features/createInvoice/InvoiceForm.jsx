@@ -5,74 +5,128 @@ import FormRow from "../../ui/FormRow";
 import Button from "../../ui/Button";
 import { useCreateInvoice } from "./useCreateInvoice";
 import BankDetails from "../../invoiceForm/BankDetails";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import AddressSelector from "../../invoiceForm/AddressSelector";
+import {
+  getAllClientAddress,
+  getAllConsigneeAddress,
+} from "../../services/apiAddress";
+import InvoiceViewer from "../../invoice/InvoiceViewer";
+import InvoiceDownload from "../../pages/InvoiceDownload";
+import InvoiceNo from "../../invoiceForm/InvoiceNo";
+import InvoiceDate from "../../invoiceForm/InvoiceDate";
+import { useInvoiceData } from "./useInvoiceContext";
 import { COMPANY_DETAILS } from "../../utils/constant";
-import ClientAddress from "../../invoiceForm/ClientAddress";
+import ReferenceNo from "../../invoiceForm/ReferenceNo";
 
 function InvoiceForm() {
-  // Initialize the default company ("Paras Print") as selectedCompany
   const defaultCompany = COMPANY_DETAILS.find(
     (company) => company.clientCompanyName === "Paras Print"
   );
-  const [selectedCompany, setSelectedCompany] = useState(defaultCompany);
-  const [selectedClient, setSelectedClient] = useState(null); // Track selected client
+  const {
+    invoiceData,
+    setInvoiceData,
+    invoiceNo,
+    setInvoiceNo,
+    selectedCompany,
+    setSelectedCompany,
+    selectedBank,
+    setSelectedBank,
+    selectedClient,
+    setSelectedClient,
+    selectedConsignee,
+    setSelectedConsignee,
+  } = useInvoiceData();
 
-  const { handleSubmit, register, setValue, formState } = useForm();
+  const { handleSubmit, register, setValue, watch, formState } = useForm();
+  const { createInvoice, isCreating } = useCreateInvoice();
   const { errors } = formState;
 
   useEffect(() => {
-    // Set the default value for the company field in React Hook Form
     setValue("company", defaultCompany?.clientCompanyName || "");
   }, [defaultCompany, setValue]);
 
-  const handleCompanyChange = (company) => {
-    setSelectedCompany(company);
-  };
-
-  // Use the custom hook
-  const { createInvoice, isCreating } = useCreateInvoice();
-
-  function handleFormSubmit(data) {
-    // Add the selected company's name under the "to" property
+  const handleFormSubmit = (data) => {
     const formData = {
       ...data,
       from: selectedCompany?.clientCompanyName,
       to: selectedClient?.clientCompanyName,
+      consignee: selectedConsignee?.clientCompanyName,
     };
-
-    // Log the form data to ensure correctness
+    setInvoiceData(formData);
     console.log("Form submitted with data:", formData);
-
-    // Call the custom hook's mutate function
     // createInvoice(formData);
-  }
+  };
+
+  const invoiceDate = watch("date"); // Use `watch` to track the date field
+  const referenceNo = watch("referenceNo");
+  const referenceDate = watch("referenceDate");
 
   return (
-    <Form onSubmit={handleSubmit(handleFormSubmit)}>
-      <Company
-        register={register}
-        setValue={setValue}
+    <>
+      <Form onSubmit={handleSubmit(handleFormSubmit)}>
+        <InvoiceNo
+          selectedCompany={selectedCompany}
+          invoiceNo={invoiceNo}
+          setInvoiceNo={setInvoiceNo}
+        />
+        <InvoiceDate register={register} errors={errors} />
+        <ReferenceNo register={register} errors={errors} />
+        <Company
+          register={register}
+          setValue={setValue}
+          selectedCompany={selectedCompany}
+          onCompanyChange={setSelectedCompany}
+        />
+        <AddressSelector
+          register={register}
+          setValue={setValue}
+          selectedEntity={selectedClient}
+          setSelectedEntity={setSelectedClient}
+          selectedCompany={selectedCompany}
+          fetchAddresses={getAllClientAddress}
+          label="Client"
+          entity="client"
+        />
+        <AddressSelector
+          register={register}
+          setValue={setValue}
+          selectedEntity={selectedConsignee}
+          setSelectedEntity={setSelectedConsignee}
+          selectedCompany={selectedCompany}
+          fetchAddresses={getAllConsigneeAddress}
+          label="Consignee"
+          entity="consignee"
+        />
+        <BankDetails
+          register={register}
+          setValue={setValue}
+          selectedCompany={selectedCompany}
+          selectedBank={selectedBank}
+          setSelectedBank={setSelectedBank}
+        />
+        <FormRow>
+          <Button type="submit">
+            {isCreating ? "Creating Invoice" : "Create Invoice"}
+          </Button>
+        </FormRow>
+      </Form>
+      <InvoiceViewer
+        invoiceNo={invoiceNo}
+        invoiceDate={invoiceDate}
+        referenceNo={referenceNo}
+        referenceDate={referenceDate}
         selectedCompany={selectedCompany}
-        onCompanyChange={handleCompanyChange}
-      />
-      <ClientAddress
-        register={register}
-        setValue={setValue}
         selectedClient={selectedClient}
-        setSelectedClient={setSelectedClient}
-        selectedCompany={selectedCompany} // Pass selected company
+        selectedConsignee={selectedConsignee}
+        selectedBank={selectedBank}
       />
-      <BankDetails
-        register={register}
-        setValue={setValue}
-        selectedCompany={selectedCompany}
-      />
-      <FormRow>
-        <Button type="submit" disabled={isCreating}>
-          {isCreating ? "Creating..." : "Create Invoice"}
-        </Button>
-      </FormRow>
-    </Form>
+      {invoiceData && (
+        <>
+          <InvoiceDownload invoiceData={invoiceData} />
+        </>
+      )}
+    </>
   );
 }
 

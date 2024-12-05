@@ -9,21 +9,25 @@ const clientStyles = StyleSheet.create({
   },
   clientName: {
     fontWeight: "semibold",
-    fontSize: 12,
+    fontSize: 10,
   },
 });
 
-function ClientDetails() {
+function ClientDetails({ client }) {
   return (
     <View style={clientStyles.container}>
-      <Text style={clientStyles.clientName}>Client Name</Text>
-      <Text>Add1</Text>
-      <Text>Add2</Text>
-      <Text>Add3</Text>
-      <Text>Pincode</Text>
-      <Text>Contact</Text>
-      <Text>Email</Text>
-      <Text>GST</Text>
+      <Text style={clientStyles.clientName}>{client?.clientCompanyName}</Text>
+      {client?.address?.add1 && <Text>{client.address.add1}</Text>}
+      {client?.address?.add2 && <Text>{client.address.add2}</Text>}
+      {client?.address?.add3 && <Text>{client.address.add3}</Text>}
+      {client?.address?.pinCode && (
+        <Text>Pincode: {client.address.pinCode}</Text>
+      )}
+      {client?.address?.panNo && <Text>PAN: {client.address.panNo}</Text>}
+      {client?.address?.gstNo && <Text>GST: {client.address.gstNo}</Text>}
+      {client?.address?.stateCode && (
+        <Text>State Code: {client.address.stateCode}</Text>
+      )}
     </View>
   );
 }

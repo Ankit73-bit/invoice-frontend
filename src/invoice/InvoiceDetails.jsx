@@ -14,11 +14,19 @@ const invoiceDetails = StyleSheet.create({
   },
 });
 
-function InvoiceDetails() {
+function InvoiceDetails({
+  invoiceNo,
+  invoiceDate,
+  referenceNo,
+  referenceDate,
+}) {
   return (
     <View style={invoiceDetails.container}>
-      <InvoiceNoDetails />
-      <ReferenceDetails />
+      <InvoiceNoDetails invoiceNo={invoiceNo} invoiceDate={invoiceDate} />
+      <ReferenceDetails
+        referenceNo={referenceNo}
+        referenceDate={referenceDate}
+      />
       <PurchaseDetails />
       <DispatchDetails />
       <TermsOfDelivery />

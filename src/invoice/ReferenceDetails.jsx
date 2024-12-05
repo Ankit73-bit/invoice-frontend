@@ -1,4 +1,5 @@
 import { StyleSheet, View, Text } from "@react-pdf/renderer";
+import { formattedDate } from "../utils/helpers";
 
 const referenceDetails = StyleSheet.create({
   container: {
@@ -24,11 +25,15 @@ const referenceDetails = StyleSheet.create({
   },
 });
 
-function ReferenceDetails() {
+function ReferenceDetails({ referenceNo, referenceDate }) {
   return (
     <View style={referenceDetails.container}>
-      <Text style={referenceDetails.reference}>Reference No: -</Text>
-      <Text style={referenceDetails.reference}>Reference Date: -</Text>
+      <Text style={referenceDetails.reference}>
+        Reference No: {referenceNo}
+      </Text>
+      <Text style={referenceDetails.reference}>
+        Reference Date: {formattedDate(referenceDate)}
+      </Text>
       <Text style={referenceDetails.otherReferences}>Other references: -</Text>
     </View>
   );

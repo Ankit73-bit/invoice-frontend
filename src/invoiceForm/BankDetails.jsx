@@ -1,9 +1,13 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { COMPANY_BANK_DETAILS } from "../utils/constant";
 
-function BankDetails({ register, setValue, selectedCompany }) {
-  const [selectedBank, setSelectedBank] = useState(null);
-
+function BankDetails({
+  register,
+  setValue,
+  selectedCompany,
+  selectedBank,
+  setSelectedBank,
+}) {
   useEffect(() => {
     register("companyBankDetails", {
       required: "Bank details selection is required",

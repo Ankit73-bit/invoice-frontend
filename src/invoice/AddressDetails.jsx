@@ -13,12 +13,12 @@ const addressDetails = StyleSheet.create({
   },
 });
 
-function AddressDetails() {
+function AddressDetails({ company, consignee, client }) {
   return (
     <View style={addressDetails.container}>
-      <CompanyDetails />
-      <ConsigneeDetails />
-      <ClientDetails />
+      <CompanyDetails company={company} />
+      <ConsigneeDetails consignee={consignee} />
+      <ClientDetails client={client} />
     </View>
   );
 }

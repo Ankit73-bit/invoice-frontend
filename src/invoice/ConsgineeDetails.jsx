@@ -8,20 +8,35 @@ const consigneeStyles = StyleSheet.create({
   },
   consigneeName: {
     fontWeight: "semibold",
-    fontSize: 12,
+    fontSize: 10,
   },
 });
 
-function ConsigneeDetails() {
+function ConsigneeDetails({ consignee }) {
+  if (!consignee) {
+    return (
+      <View style={consigneeStyles.container}>
+        <Text>No consignee details available.</Text>
+      </View>
+    );
+  }
+
   return (
     <View style={consigneeStyles.container}>
-      <Text style={consigneeStyles.consigneeName}>Consignee Name</Text>
-      <Text>Add1</Text>
-      <Text>Add2</Text>
-      <Text>Pincode</Text>
-      <Text>PanNo</Text>
-      <Text>GST</Text>
-      <Text>GST</Text>
+      <Text style={consigneeStyles.consigneeName}>
+        {consignee.clientCompanyName}
+      </Text>
+      {consignee?.address?.add1 && <Text>{consignee.address.add1}</Text>}
+      {consignee?.address?.add2 && <Text>{consignee.address.add2}</Text>}
+      {consignee?.address?.add3 && <Text>{consignee.address.add3}</Text>}
+      {consignee?.address?.pinCode && (
+        <Text>Pincode: {consignee.address.pinCode}</Text>
+      )}
+      {consignee?.address?.panNo && <Text>PAN: {consignee.address.panNo}</Text>}
+      {consignee?.address?.gstNo && <Text>GST: {consignee.address.gstNo}</Text>}
+      {consignee?.address?.stateCode && (
+        <Text>State Code: {consignee.address.stateCode}</Text>
+      )}
     </View>
   );
 }

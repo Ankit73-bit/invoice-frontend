@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View } from "@react-pdf/renderer";
 
-function BankDetails() {
+function BankDetails({ bankDetails }) {
   const bankDetailsStyle = StyleSheet.create({
     bankDetails: {
       padding: 4,
@@ -10,11 +10,11 @@ function BankDetails() {
 
   return (
     <View style={bankDetailsStyle.bankDetails}>
-      <Text>Client Name</Text>
-      <Text>Bank Name: ICICI BANK</Text>
-      <Text>Account No: 098405500495</Text>
-      <Text>IFSC Code: ICIC0000984</Text>
-      <Text>Branch Name: BHANDUP WEST</Text>
+      <Text>{bankDetails?.companyName} Bank Details</Text>
+      <Text>Bank Name: {bankDetails?.bankName}</Text>
+      <Text>Account No: {bankDetails?.accNo}</Text>
+      <Text>IFSC Code: {bankDetails?.ifsc}</Text>
+      <Text>Branch Name: {bankDetails?.branchName}</Text>
     </View>
   );
 }

@@ -2,7 +2,7 @@ import { StyleSheet, View } from "@react-pdf/renderer";
 import AmountCalculations from "./AmountCalculations";
 import BankDetailsAndAMT from "./BankDetailsAndAMT";
 
-function AmountDetails() {
+function AmountDetails({ bankDetails }) {
   const amountStyles = StyleSheet.create({
     container: {
       display: "flex",
@@ -11,7 +11,7 @@ function AmountDetails() {
   });
   return (
     <View style={amountStyles.container}>
-      <BankDetailsAndAMT />
+      <BankDetailsAndAMT bankDetails={bankDetails} />
       <AmountCalculations />
     </View>
   );

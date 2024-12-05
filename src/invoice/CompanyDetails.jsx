@@ -13,17 +13,19 @@ const companyStyles = StyleSheet.create({
   },
 });
 
-function CompanyDetails() {
+function CompanyDetails({ company }) {
   return (
     <View style={companyStyles.container}>
-      <Text style={companyStyles.companyName}>Company Name</Text>
-      <Text>Add1</Text>
-      <Text>Add2</Text>
-      <Text>Add3</Text>
-      <Text>Pincode</Text>
-      <Text>Contact</Text>
-      <Text>Email</Text>
-      <Text>GST</Text>
+      <Text style={companyStyles.companyName}>
+        {company?.clientCompanyName}
+      </Text>
+      <Text>{company?.add1}</Text>
+      <Text>{company?.add2}</Text>
+      <Text>{company?.add3}</Text>
+      <Text>{company?.pinCode}</Text>
+      <Text>{company?.contact}</Text>
+      <Text>{company?.mail}</Text>
+      <Text>{company?.gstno}</Text>
     </View>
   );
 }

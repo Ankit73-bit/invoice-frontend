@@ -4,7 +4,7 @@ import Modal from "../../ui/Modal";
 
 function AddClient() {
   return (
-    <div>
+    <>
       <Modal>
         <Modal.Open opens="client-form">
           <Button>Add new client Address</Button>
@@ -13,7 +13,7 @@ function AddClient() {
           <AddClientAddress />
         </Modal.Window>
       </Modal>
-    </div>
+    </>
   );
 }
 

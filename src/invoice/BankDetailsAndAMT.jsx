@@ -2,7 +2,7 @@ import { StyleSheet, View } from "@react-pdf/renderer";
 import BankDetails from "./BankDetails";
 import Inwords from "./Inwords";
 
-function BankDetailsAndAMT() {
+function BankDetailsAndAMT({ bankDetails }) {
   const bankDetailsAndAMTStyle = StyleSheet.create({
     container: {
       width: "50%",
@@ -12,7 +12,7 @@ function BankDetailsAndAMT() {
 
   return (
     <View style={bankDetailsAndAMTStyle.container}>
-      <BankDetails />
+      <BankDetails bankDetails={bankDetails} />
       <Inwords />
     </View>
   );
